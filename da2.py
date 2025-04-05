@@ -9,11 +9,15 @@ import matplotlib.font_manager as fm
 import platform
 import os
 
+
 # 在文件开头添加字体设置函数
 def set_matplotlib_chinese_font():
     """设置matplotlib中文字体，适应不同操作系统环境"""
-    system = platform.system()
+    # 清理之前的plt资源，避免DOM冲突
+    plt.close('all')
     
+    system = platform.system()
+
     # 尝试设置中文字体
     if system == 'Windows':
         font_list = ['Microsoft YaHei', 'SimHei']
@@ -1884,6 +1888,7 @@ def visualize_results(results):
         '水': '#2196F3'  # 蓝色
     }
 
+
     element_descriptions = {
         '木': '木（绿色）：代表生长、发展',
         '火': '火（红色）：代表温暖、光明',
@@ -1902,11 +1907,13 @@ def visualize_results(results):
             ordered_elements.append(element)
             ordered_counts.append(element_data['五行统计'][element])
             ordered_colors.append(element_colors[element])
-
+# 创建图表前清理之前的资源
+    plt.close('all')
     # 创建图表 - 使用中文字体解决乱码问题
     plt.rcParams['font.sans-serif'] = ['Arial Unicode MS', 'SimHei']  # 设置中文字体
     plt.rcParams['axes.unicode_minus'] = False  # 解决负号显示问题
     
+       # 创建图表 - 使用中文字体解决乱码问题
     fig, ax = plt.subplots(figsize=(12, 7))
     bars = ax.bar(ordered_elements, ordered_counts, color=ordered_colors)
 
@@ -1937,12 +1944,14 @@ def visualize_results(results):
     # 调整布局以适应图例
     plt.tight_layout()
 
-    # 显示图表
+     # 显示图表后确保关闭
     st.pyplot(fig)
-    plt.close()
-    
+    plt.close(fig)
+
     # 添加饼图展示五行比例
     st.subheader("五行比例分布")
+     # 创建新图表前清理资源
+    plt.close('all')
     fig2, ax2 = plt.subplots(figsize=(10, 7))
     wedges, texts, autotexts = ax2.pie(
         ordered_counts, 
@@ -1956,6 +1965,7 @@ def visualize_results(results):
     # 设置饼图文本样式
     plt.setp(autotexts, size=10, weight="bold")
     plt.setp(texts, size=12)
+
     
     # 添加标题
     ax2.set_title('五行能量比例', fontsize=14)
@@ -1974,7 +1984,7 @@ def visualize_results(results):
     
     # 显示图表
     st.pyplot(fig2)
-    plt.close()
+    plt.close(fig2)
 
     st.write(f"主导五行: {element_data['主导五行'][0]} (出现{element_data['主导五行'][1]}次)")
     st.subheader("数字性格特征")
@@ -1984,7 +1994,14 @@ def visualize_results(results):
 
 
 def main():
+    # 设置matplotlib中文字体
+    set_matplotlib_chinese_font()
+    
+    # 清理之前的plt资源
+    plt.close('all')
+    
     st.title("手机号码算命分析系统")
+   
     st.write("欢迎使用手机号码算命分析系统！请在下方输入您要分析的手机号码。")
 
     # 使用表单
