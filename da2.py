@@ -15,7 +15,7 @@ def set_matplotlib_chinese_font():
     """设置matplotlib中文字体，适应不同操作系统环境"""
     # 清理之前的plt资源，避免DOM冲突
     plt.close('all')
-    
+
     system = platform.system()
 
     # 尝试设置中文字体
@@ -25,10 +25,10 @@ def set_matplotlib_chinese_font():
         font_list = ['Arial Unicode MS', 'PingFang SC', 'Heiti SC']
     else:  # Linux或其他
         font_list = ['WenQuanYi Micro Hei', 'Droid Sans Fallback', 'Noto Sans CJK SC']
-    
+
     # 添加思源黑体作为备选（适用于大多数平台）
     font_list.append('Source Han Sans CN')
-    
+
     # 尝试找到可用的中文字体
     chinese_font = None
     for font in font_list:
@@ -38,7 +38,7 @@ def set_matplotlib_chinese_font():
                 break
         except:
             continue
-    
+
     # 如果找不到中文字体，尝试使用Streamlit部署环境中可能存在的字体
     if chinese_font is None:
         try:
@@ -54,14 +54,16 @@ def set_matplotlib_chinese_font():
             mpl.rc('font', family='sans-serif')
     else:
         mpl.rc('font', family=chinese_font)
-    
+
     # 解决负号显示问题
     mpl.rcParams['axes.unicode_minus'] = False
+
 
 # 在main函数开头调用此函数
 def main():
     # 设置matplotlib中文字体
     set_matplotlib_chinese_font()
+
 
 # 数字五行属性
 DIGIT_TO_ELEMENT = {
@@ -83,18 +85,42 @@ DIGIT_PERSONALITY = {
     '0': "太极点、变化、隐藏、不确定、变数、起伏、不稳定、突发等",
 }
 
-# 八星定义 (吉星和凶星)
+#  八星定义 (吉星和凶星)，按能量级别从强到弱排序
 STAR_GROUPS = {
     # 四吉星
-    '天医': ['13', '31', '68', '86', '49', '94', '27', '72'],
-    '延年': ['19', '91', '78', '87', '34', '43', '26', '62'],
-    '生气': ['14', '41', '67', '76', '39', '93', '28', '82'],
-    '伏位': ['11', '22', '88', '99', '66', '77', '33', '44'],
+    '天医': ['13', '31',  # 4级能量
+             '68', '86',  # 3级能量
+             '49', '94',  # 2级能量
+             '27', '72'], # 1级能量
+    '延年': ['19', '91',  # 4级能量
+             '78', '87',  # 3级能量
+             '34', '43',  # 2级能量
+             '26', '62'], # 1级能量
+    '生气': ['14', '41',  # 4级能量
+             '67', '76',  # 3级能量
+             '39', '93',  # 2级能量
+             '28', '82'], # 1级能量
+    '伏位': ['11', '22',  # 4级能量
+             '88', '99',  # 3级能量
+             '66', '77',  # 2级能量
+             '33', '44'], # 1级能量
     # 四凶星
-    '绝命': ['12', '21', '69', '96', '48', '84', '37', '73'],
-    '祸害': ['17', '71', '89', '98', '46', '64', '23', '32'],
-    '五鬼': ['18', '81', '79', '97', '36', '63', '24', '42'],
-    '六煞': ['16', '61', '47', '74', '38', '83', '29', '92']
+    '绝命': ['12', '21',  # 4级能量
+             '69', '96',  # 3级能量
+             '48', '84',  # 2级能量
+             '37', '73'], # 1级能量
+    '祸害': ['17', '71',  # 4级能量
+             '89', '98',  # 3级能量
+             '46', '64',  # 2级能量
+             '23', '32'], # 1级能量
+    '五鬼': ['18', '81',  # 4级能量
+             '79', '97',  # 3级能量
+             '36', '63',  # 2级能量
+             '24', '42'], # 1级能量
+    '六煞': ['16', '61',  # 4级能量
+             '47', '74',  # 3级能量
+             '38', '83',  # 2级能量
+             '29', '92']  # 1级能量
 }
 
 # 在STAR_GROUPS后添加能量等级定义
@@ -350,7 +376,6 @@ SPECIAL_COMBINATIONS_MEANINGS = {
         '跟0': "容易忘记贵人，贵人越来越少，人际关系不长久，更多的是利用人际关系，不重感情，感情来的快去的也快不长久，容易责怪别人，感情友谊慢慢的平淡谈不长久，有重复被欺骗和伤害的信息，贵人不给力，帮不上什么忙，看似没什么用"
     },
 
-    
     '绝命': {
         '夹5': "胆大包天，只看的目标没有看到障碍，什么都敢干，为所欲为，想干就干，毫不疑迟，容易出意外，车祸，急性病，血光，开刀动手术，癌症。说干就干，无所顾忌，很难被改变，起起伏伏，讲义气",
         '夹0': "有隐藏的伤口或疾病，有破财的信息，只有冲动的想法但没有实际的行动在想法上冲动在做法上徘徊犹豫，想的很大，但有点虚张声势，容易摇摆，或变化性很强，容易得癌症或开刀动手术",
@@ -376,7 +401,6 @@ SPECIAL_COMBINATIONS_MEANINGS = {
         '跟0': "感情和异性来的快去的也快，感情不长久或对感情投入的热情不够，持续性不够，感情慢慢变淡甚至消失，容易有抑郁失落的感觉，觉得自己可怜，孤苦伶仃的感觉，不长久恋爱归一平淡，容易陷入低潮或心情不好总是自我责怪"
     }
 }
-
 
 # 特殊信息检测
 SPECIAL_INFO = {
@@ -458,7 +482,6 @@ SPECIAL_INFO_DETAILS = {
         '五鬼+延年': '喜欢赚钱，有钱就喜欢投资；赚钱辛苦，有可能有钱，但是比较小气；容易有慢性病、压力大，比较操心，郁闷，情绪不稳定'
     }
 }
-
 
 # 添加星组组合分析定义
 ENERGY_FLOW_DETAILS = {
@@ -545,7 +568,7 @@ ENERGY_FLOW_DETAILS = {
             '风险警示：需配合稳数字化解冲动投资'
         ]
     },
-    
+
     # 2. 延年系列
     ('生气', '延年'): {
         'title': '生气→延年：贵人助业格',
@@ -614,7 +637,7 @@ ENERGY_FLOW_DETAILS = {
             '适合行业：投资、房产、创业'
         ]
     },
-    
+
     # 3. 生气系列
     ('生气', '生气'): {
         'title': '生气→生气：贵人汇聚格',
@@ -684,7 +707,7 @@ ENERGY_FLOW_DETAILS = {
             '事业发展：即使面对挑战也能保持良好心态'
         ]
     },
-    
+
     # 4. 伏位系列
     ('生气', '伏位'): {
         'title': '生气→伏位：贵人延续格',
@@ -752,7 +775,7 @@ ENERGY_FLOW_DETAILS = {
             '风险提示：长期冒险行为可能带来严重后果'
         ]
     },
-    
+
     # 5. 六煞系列
     ('生气', '六煞'): {
         'title': '生气→六煞：贵人桃花格',
@@ -824,7 +847,7 @@ ENERGY_FLOW_DETAILS = {
             '心理状态：压力大，容易精神疲惫'
         ]
     },
-    
+
     # 6. 祸害系列
     ('生气', '祸害'): {
         'title': '生气→祸害：言论争议格',
@@ -895,7 +918,7 @@ ENERGY_FLOW_DETAILS = {
             '风险提示：言论可能导致严重后果'
         ]
     },
-    
+
     # 7. 五鬼系列
     ('生气', '五鬼'): {
         'title': '生气→五鬼：贵人陷阱格',
@@ -964,7 +987,7 @@ ENERGY_FLOW_DETAILS = {
             '风险提示：创意可能导致冒险行为'
         ]
     },
-    
+
     # 8. 绝命系列
     ('生气', '绝命'): {
         'title': '生气→绝命：乐观冒险格',
@@ -1024,7 +1047,7 @@ ENERGY_FLOW_DETAILS = {
             '人际影响：言论可能造成不可挽回的伤害'
         ]
     },
-        ('五鬼', '绝命'): {
+    ('五鬼', '绝命'): {
         'title': '五鬼→绝命：冒险创富格',
         'details': [
             '当一有好的资讯，就会懂得去抓住，而去努力实现',
@@ -1044,7 +1067,6 @@ ENERGY_FLOW_DETAILS = {
             '风险提示：极易破财，投资失败率高'
         ]
     },
-
 
     # 7. 特殊组合提示
     'special_notes': {
@@ -1068,7 +1090,6 @@ for key, details in ENERGY_FLOW_DETAILS.items():
         STAR_COMBINATIONS[star1][star2] = details['details'][0] if details['details'] else details['title']
 
 
-
 def analyze_phone_number(phone_number):
     """主分析函数"""
     # 去掉前3位号段
@@ -1082,8 +1103,8 @@ def analyze_phone_number(phone_number):
         '特殊信息': check_special_info(analysis_number)
     }
 
-
     return results
+
 
 def get_energy_level(star_name, number_pair):
     """获取星组能量等级（从STAR_ENERGY_LEVELS字典中查找）"""
@@ -1092,7 +1113,6 @@ def get_energy_level(star_name, number_pair):
          if number_pair in pairs),
         0
     )
-
 
 
 def analyze_element(number):
@@ -1120,106 +1140,136 @@ def analyze_element(number):
 
 
 def find_star_groups(number):
-    """分析逻辑2/3：查找八星组合"""
-    stars_found = {}
+    """分析逻辑2/3：查找八星组合并按正确顺序排序"""
+    # 1. 识别所有常规星组组合
     digit_pairs = [number[i:i + 2] for i in range(len(number) - 1)]
-    
-    # 查找所有八星组合
-    for name, groups in STAR_GROUPS.items():
-        found = []
-        for pair in digit_pairs:
-            if pair in groups:
-                found.append(pair)
-        if found:
-            stars_found[name] = {
-                'count': len(found),
-                'pairs': found,
-                'hidden_pairs': [],
-                'meaning': STAR_MEANINGS.get(name, {})
+    found_stars = {}
+
+    for star_name, groups in STAR_GROUPS.items():
+        found_pairs = [pair for pair in digit_pairs if pair in groups]
+        if found_pairs:
+            # 计算总能量值（基于 STAR_ENERGY_LEVELS 字典）
+            total_energy = sum(
+                next(
+                    (level for level, pairs in STAR_ENERGY_LEVELS[star_name].items() if pair in pairs),
+                    1  # 默认最低能量 1（避免 0 值影响）
+                )
+                for pair in found_pairs
+            )
+
+            found_stars[star_name] = {
+                'count': len(found_pairs),
+                'pairs': found_pairs,
+                'total_energy': total_energy,
+                'meaning': STAR_MEANINGS.get(star_name, {})
             }
 
-    # 检查特殊组合
+    # 2. 查找 "夹0/5" 组合（如 103 → 13）
     triple_groups = [number[i:i + 3] for i in range(len(number) - 2)]
-    
-    # 检查夹0/5情况（0/5在中间位置）
+
     for triple in triple_groups:
         if triple[1] in ('0', '5'):
-            left = triple[0]
-            right = triple[2]
-            hidden_pair = left + right
+            hidden_pair = triple[0] + triple[2]
             for star_name, groups in STAR_GROUPS.items():
                 if hidden_pair in groups:
-                    if star_name not in stars_found:
-                        stars_found[star_name] = {
+                    # 初始化星组记录（如果不存在）
+                    if star_name not in found_stars:
+                        found_stars[star_name] = {
                             'count': 0,
                             'pairs': [],
                             'hidden_pairs': [],
+                            'total_energy': 0,
                             'meaning': STAR_MEANINGS.get(star_name, {})
                         }
-                    stars_found[star_name]['hidden_pairs'].append({
+                    # 增加该星组的计数和能量
+                    energy_level = next(
+                        (level for level, pairs in STAR_ENERGY_LEVELS[star_name].items() if hidden_pair in pairs),
+                        1  # 默认最低能量
+                    )
+                    found_stars[star_name]['count'] += 1
+                    found_stars[star_name]['total_energy'] += energy_level
+                    if 'hidden_pairs' not in found_stars[star_name]:
+                        found_stars[star_name]['hidden_pairs'] = []
+                    found_stars[star_name]['hidden_pairs'].append({
                         'full': triple,
                         'pair': hidden_pair,
-                        'type': '夹0' if triple[1] == '0' else '夹5'
+                        'type': f"夹{triple[1]}"
                     })
-                    stars_found[star_name]['count'] += 1
-    
-    # 检查跟5/跟0情况（5/0在第一位）
-    for triple in triple_groups:
-        if triple[0] in ('0', '5'):
-            pair = triple[1:]
-            for star_name, groups in STAR_GROUPS.items():
-                if pair in groups:
-                    if star_name not in stars_found:
-                        stars_found[star_name] = {
-                            'count': 0,
-                            'pairs': [],
-                            'hidden_pairs': [],
-                            'meaning': STAR_MEANINGS.get(star_name, {})
-                        }
-                    stars_found[star_name]['hidden_pairs'].append({
-                        'full': triple,
-                        'pair': pair,
-                        'type': '跟0' if triple[0] == '0' else '跟5'
-                    })
-                    stars_found[star_name]['count'] += 1
 
-    # 确定主导星
-    dominant_star = ("无", {'count': 0})
-    if stars_found:
-        dominant_star = max(stars_found.items(), key=lambda x: x[1]['count'])
+    # 3. 确保 "出现次数" 和 "能量" 都影响排序
+    # 规则1：出现次数高的在前
+    # 规则2：同次数时，能量高的在前
+    sorted_stars = sorted(
+        found_stars.items(),
+        key=lambda item: (-item[1]['count'], -item[1]['total_energy'])
+    )
+
+    # 4. 记录主导星（出现次数最多的，若有相同则取能量高的）
+    dominant_star = ("无", {'count': 0}) if not found_stars else sorted_stars[0]
 
     return {
-        'stars': stars_found,
+        'stars': dict(sorted_stars),  # 排序后的星组
         'dominant_star': dominant_star
     }
+
+
 def analyze_star_energy(star_name, pairs):
     """分析星组能量"""
     energy_levels = {}
     total_energy = 0
     max_energy_level = 0
-    
+
     for pair in pairs:
         level = get_energy_level(star_name, pair)
         energy_levels[pair] = level
         total_energy += level
         if level > max_energy_level:
             max_energy_level = level
-    
+
     return {
         'energy_levels': energy_levels,
         'total_energy': total_energy,
         'max_energy_level': max_energy_level
     }
 
+
 # 在analyze_tail_number函数中修改，使用新的TAIL_STAR_MEANINGS字典
 def analyze_tail_number(number):
     """
-    严格按优先级的尾号分析逻辑，从后往前查找第一个星组
+    优化后的尾号分析逻辑：
+    1. 如果末尾是0/5，先检查是否为夹0/5组合（如X0Y）
+    2. 如果不是夹0/5组合，则忽略末尾0/5，分析前两位
+    3. 如果末尾不是0/5，直接分析最后2位
     """
-    tail = number[-4:] if len(number) >= 4 else number.zfill(4)[-4:]
+    # 检查是否为夹0/5组合（倒数第二位是0/5）
+    if len(number) >= 3 and number[-2] in ('0', '5'):
+        # 检查夹0/5组合（如X0Y中的XY）
+        hidden_pair = number[-3] + number[-1]
+        for star_name, star_info in TAIL_STAR_MEANINGS.items():
+            if hidden_pair in star_info['pairs']:
+                return {
+                    'tail_number': number[-3:],
+                    'analysis_type': f"夹{number[-2]}",
+                    'dominant_tail': {
+                        'star': star_name,
+                        'pairs': [hidden_pair],
+                        'energy_level': get_energy_level(star_name, hidden_pair),
+                        'meaning': star_info['meaning']
+                    },
+                    'tail_stars': [(star_name, hidden_pair)]
+                }
+
+    # 默认分析最后2位（忽略末尾的0/5）
+    tail = number[-2:]
+    if tail[-1] in ('0', '5'):
+        tail = number[-3:-1] if len(number) >= 3 else number[:-1]
+        analysis_type = '忽略末尾0/5'
+    else:
+        analysis_type = '标准尾号'
+
     result = {
         'tail_number': tail,
-        'analysis_type': None,
+        'analysis_type': analysis_type,
         'dominant_tail': {
             'star': None,
             'pairs': [],
@@ -1228,314 +1278,276 @@ def analyze_tail_number(number):
         },
         'tail_stars': []
     }
-    
-    # 查找最后4位中的所有星组
-    digit_pairs = [tail[i:i+2] for i in range(len(tail)-1)]
-    for pair in digit_pairs:
+
+    # 从后往前查找符合条件的星组
+    for i in range(len(tail) - 1, 0, -1):
+        pair = tail[i - 1:i + 1]
         for star_name, star_info in TAIL_STAR_MEANINGS.items():
             if pair in star_info['pairs']:
-                result['tail_stars'].append((star_name, pair))
-    
-    # 优先检查最后3位中的夹0/5情况
-    if len(tail) >= 3:
-        last_three = tail[-3:]
-        if last_three[1] in ('0', '5'):
-            left = last_three[0]
-            right = last_three[2]
-            hidden_pair = left + right
-            for star_name, star_info in TAIL_STAR_MEANINGS.items():
-                if hidden_pair in star_info['pairs']:
-                    sandwich_type = '夹0' if last_three[1] == '0' else '夹5'
-                    energy_level = get_energy_level(star_name, hidden_pair)
-                    result.update({
-                        'analysis_type': sandwich_type,
-                        'dominant_tail': {
-                            'star': star_name,
-                            'pairs': [hidden_pair],
-                            'energy_level': energy_level,
-                            'meaning': star_info['meaning']
-                        }
-                    })
-                    # 添加这个特殊组合到tail_stars
-                    result['tail_stars'].append((star_name, hidden_pair))
-                    return result
-    
-    # 优先检查最后2位是否为完整星组
-    last_two = tail[-2:]
-    for star_name, star_info in TAIL_STAR_MEANINGS.items():
-        if last_two in star_info['pairs']:
-            energy_level = get_energy_level(star_name, last_two)
-            result.update({
-                'analysis_type': '直接星组',
-                'dominant_tail': {
-                    'star': star_name,
-                    'pairs': [last_two],
-                    'energy_level': energy_level,
-                    'meaning': star_info['meaning']
-                }
-            })
-            return result
-    
-    # 从后往前检查所有可能的2位数组合
-    for i in range(len(tail)-1, 0, -1):
-        pair = tail[i-1:i+1]
-        for star_name, star_info in TAIL_STAR_MEANINGS.items():
-            if pair in star_info['pairs']:
-                energy_level = get_energy_level(star_name, pair)
                 result.update({
-                    'analysis_type': '从后往前查找',
+                    'analysis_type': f"{analysis_type}→直接星组",
                     'dominant_tail': {
                         'star': star_name,
                         'pairs': [pair],
-                        'energy_level': energy_level,
+                        'energy_level': get_energy_level(star_name, pair),
                         'meaning': star_info['meaning']
-                    }
+                    },
+                    'tail_stars': [(star_name, pair)]
                 })
                 return result
-    
-    # 默认情况：没有检测到任何星组
+
     return result
 
 
-
 def analyze_energy_flow(number):
-    """分析逻辑7：能量流动分析"""
+    """分析逻辑7：能量流动分析(增强版：包含去重和完整连号检测)"""
     flows = []
-    
-    # 1. 先找出所有常规星组
-    regular_stars = {}
-    digit_pairs = [number[i:i+2] for i in range(len(number)-1)]
-    for i, pair in enumerate(digit_pairs):
-        for star_name, groups in STAR_GROUPS.items():
-            if pair in groups:
-                if i not in regular_stars:
-                    regular_stars[i] = []
-                regular_stars[i].append((star_name, pair))
-    
-    # 2. 找出所有夹0/5和跟0/5的特殊星组
-    special_stars = {}
-    triple_groups = [number[i:i+3] for i in range(len(number)-2)]
-    
-    # 检查夹0/5情况（0/5在中间位置）
-    for i, triple in enumerate(triple_groups):
-        if triple[1] in ('0', '5'):
-            left = triple[0]
-            right = triple[2]
-            hidden_pair = left + right
-            for star_name, groups in STAR_GROUPS.items():
-                if hidden_pair in groups:
-                    if i not in special_stars:
-                        special_stars[i] = []
-                    special_stars[i].append((star_name, hidden_pair, f"夹{triple[1]}", triple))
-    
-    # 检查跟5/跟0情况（5/0在第一位）
-    for i, triple in enumerate(triple_groups):
-        if triple[0] in ('0', '5'):
-            pair = triple[1:]
-            for star_name, groups in STAR_GROUPS.items():
-                if pair in groups:
-                    if i not in special_stars:
-                        special_stars[i] = []
-                    special_stars[i].append((star_name, pair, f"跟{triple[0]}", triple))
-    
-    # 3. 合并所有星组并按位置排序
-    all_stars = {}
-    for i, stars in regular_stars.items():
-        if i not in all_stars:
-            all_stars[i] = []
-        all_stars[i].extend([(star, pair, "常规", pair) for star, pair in stars])
-    
-    for i, stars in special_stars.items():
-        if i not in all_stars:
-            all_stars[i] = []
-        all_stars[i].extend(stars)
-    
-    # 4. 从前到后顺序生成能量流动，穷举所有可能的组合
-    positions = sorted(all_stars.keys())
-    
-    # 穷举所有可能的组合（不仅仅是相邻的）
-    for i in range(len(positions)):
-        for j in range(i + 1, len(positions)):
-            pos1 = positions[i]
-            pos2 = positions[j]
-            
-            # 确保位置间隔不太远（可以调整这个值）
-            if pos2 - pos1 > 4:  # 允许最多间隔3个位置
-                continue
-                
-            for star1_info in all_stars[pos1]:
-                for star2_info in all_stars[pos2]:
-                    star1, pair1, type1, full1 = star1_info
-                    star2, pair2, type2, full2 = star2_info
-                    
-                    # 检查是否有能量流动关系
-                    flow_key = (star1, star2)
-                    reverse_flow_key = (star2, star1)
-                    
-                    # 计算能量等级
-                    energy_level = 0
-                    flow_details = None
-                    flow_direction = ""
-                    flow_meaning = ""
-                    
-                    if flow_key in ENERGY_FLOW_DETAILS:
-                        flow_details = ENERGY_FLOW_DETAILS[flow_key]
-                        flow_direction = f"{star1}→{star2}"
-                        flow_meaning = STAR_COMBINATIONS.get(star1, {}).get(star2, flow_details['title'])
-                        # 根据组合的重要性和位置计算能量等级
-                        energy_level = calculate_flow_energy(flow_key, pos2 - pos1, pair1, pair2)
-                    elif reverse_flow_key in ENERGY_FLOW_DETAILS:
-                        flow_details = ENERGY_FLOW_DETAILS[reverse_flow_key]
-                        flow_direction = f"{star2}→{star1}"
-                        flow_meaning = STAR_COMBINATIONS.get(star2, {}).get(star1, flow_details['title'])
-                        # 根据组合的重要性和位置计算能量等级
-                        energy_level = calculate_flow_energy(reverse_flow_key, pos2 - pos1, pair2, pair1)
-                    
-                    if flow_details:
-                        # 构建组合信息
-                        if type1 == "常规" and type2 == "常规":
-                            # 对于常规组合，显示实际的数字序列
-                            combination = number[pos1:pos2+2]
-                        elif "夹" in type1 or "夹" in type2 or "跟" in type1 or "跟" in type2:
-                            # 对于特殊组合，显示完整的三位数
-                            combination = f"{full1}→{full2}"
-                        else:
-                            combination = f"{pair1}→{pair2}"
-                        
-                        flows.append({
-                            'combination': combination,
-                            'stars': flow_direction,
-                            'meaning': flow_meaning,
-                            'type1': type1,
-                            'type2': type2,
-                            'position': (pos1, pos2),
-                            'energy_level': energy_level,
-                            'details': flow_details
-                        })
+    seen_combos = set()  # 用于去重的集合
 
-    # 按能量等级排序
-    flows.sort(key=lambda x: x['energy_level'], reverse=True)
+    # 修改最大分析位数：对于不含0/5的组合，最大3位；含0/5的组合，最大5位
+    for i in range(len(number) - 1):
+        for length in range(2, 6):  # 2-5位连续数字
+            if i + length > len(number):
+                continue
+
+            segment = number[i:i + length]
+
+            # 检查是否包含0或5，如果不包含且长度>3，则跳过
+            if '0' not in segment and '5' not in segment and length > 3:
+                continue
+
+            # 找出该段所有星组（包括夹0/5和跟0/5）
+            star_info = find_stars_in_segment(segment)
+
+            # 必须至少有两组才能形成能量流动
+            if len(star_info) >= 2:
+                segment_flows = analyze_segment_flows(segment, star_info)
+
+                for flow in segment_flows:
+                    # 创建唯一标识（组合+位置+类型+星组）
+                    combo_id = (flow['stars'], flow['range'])
+
+                    if combo_id not in seen_combos:
+                        seen_combos.add(combo_id)
+                        flow['position'] = (i, i + length - 1)
+                        flows.append(flow)
+
+    # 按总能量从高到低排序
+    flows.sort(key=lambda x: (-x['total_energy'], -len(x['range'])))
     return flows
 
-def calculate_flow_energy(flow_key, distance, pair1, pair2):
-    """计算能量流动的能量等级"""
-    # 基础能量等级
-    base_energy = 2
-    
-    # 重要组合加分
-    important_combinations = [
-        ('天医', '延年'), ('生气', '天医'), ('延年', '伏位'),
-        ('天医', '绝命'), ('五鬼', '天医'), ('六煞', '祸害')
-    ]
-    
-    if flow_key in important_combinations:
-        base_energy += 1
-    
-    # 距离越近能量越高
-    if distance == 1:
-        base_energy += 1
-    elif distance > 2:
-        base_energy -= 1
-    
-    # 根据数字组合的特殊性调整能量
-    special_pairs = ['19', '78', '37', '28', '46', '91', '82']
-    if pair1 in special_pairs or pair2 in special_pairs:
-        base_energy += 1
-    
-    # 确保能量等级在1-4之间
-    return max(1, min(4, base_energy))
+def find_stars_in_segment(segment):
+    """增强版的星组识别函数，能识别更紧密的星组"""
+    star_info = []
 
-# 在visualize_results函数中修改能量流动分析部分
+    # 1. 先找常规的2位星组
+    for i in range(len(segment) - 1):
+        pair = segment[i:i + 2]
+        for star_name, groups in STAR_GROUPS.items():
+            if pair in groups:
+                level = get_energy_level(star_name, pair)
+                star_info.append({
+                    'type': '常规',
+                    'star': star_name,
+                    'level': level,
+                    'pair': pair,
+                    'pos': (i, i + 1),
+                    'processed': False  # 添加标记位
+                })
+
+    # 2. 找夹0/5组合（中间是0/5的三位数）
+    if len(segment) >= 3:
+        for i in range(len(segment) - 2):
+            triple = segment[i:i + 3]
+            if triple[1] in ('0', '5'):
+                hidden_pair = triple[0] + triple[2]
+                for star_name, groups in STAR_GROUPS.items():
+                    if hidden_pair in groups:
+                        level = get_energy_level(star_name, hidden_pair)
+                        star_info.append({
+                            'type': f"夹{triple[1]}",
+                            'star': star_name,
+                            'level': level,
+                            'pair': hidden_pair,
+                            'full': triple,
+                            'pos': (i, i + 2),
+                            'processed': False
+                        })
+
+    # 3. 找跟0/5组合（开头是0/5的三位数）
+    if len(segment) >= 3:
+        for i in range(len(segment) - 2):
+            triple = segment[i:i + 3]
+            if triple[0] in ('0', '5'):
+                pair = triple[1:]
+                for star_name, groups in STAR_GROUPS.items():
+                    if pair in groups:
+                        level = get_energy_level(star_name, pair)
+                        star_info.append({
+                            'type': f"跟{triple[0]}",
+                            'star': star_name,
+                            'level': level,
+                            'pair': pair,
+                            'full': triple,
+                            'pos': (i, i + 2),
+                            'processed': False
+                        })
+
+    # 4. 按位置排序
+    star_info.sort(key=lambda x: x['pos'][0])
+
+    # 5. 标记重叠区域（防止重复计算）
+    for i in range(1, len(star_info)):
+        if star_info[i]['pos'][0] <= star_info[i - 1]['pos'][1]:
+            star_info[i - 1]['processed'] = True
+
+    return star_info
+
+
+def analyze_segment_flows(segment, star_info):
+    """分析数字段中的能量流动组合（严格连号版）"""
+    flows = []
+
+    # 重新计算每个星组的实际数字范围
+    for i in range(len(star_info)):
+        star_info[i]['actual_range'] = segment[star_info[i]['pos'][0]:star_info[i]['pos'][1] + 1]
+
+    # 找出所有可能的连续组合（最多间隔1位）
+    for i in range(len(star_info) - 1):
+        for j in range(i + 1, len(star_info)):
+            current = star_info[i]
+            next_star = star_info[j]
+
+            # 计算实际间隔（考虑星组本身跨位数）
+            gap = next_star['pos'][0] - current['pos'][1] - 1
+
+            # 严格连号条件：最多间隔1位
+            if gap <= 1:
+                # 计算组合总长度
+                total_length = next_star['pos'][1] - current['pos'][0] + 1
+
+                # 检查是否包含0或5，如果不包含且长度>3，则跳过
+                sub_segment = segment[current['pos'][0]:next_star['pos'][1] + 1]
+                if '0' not in sub_segment and '5' not in sub_segment and total_length > 3:
+                    continue
+
+                # 确保没有中间其他星组（重要修复！）
+                has_interference = False
+                for k in range(i + 1, j):
+                    mid_star = star_info[k]
+                    # 如果中间星组与当前组合重叠
+                    if not (mid_star['pos'][1] < current['pos'][0] or mid_star['pos'][0] > next_star['pos'][1]):
+                        has_interference = True
+                        break
+
+                if not has_interference:
+                    # 计算组合范围
+                    start = current['pos'][0]
+                    end = next_star['pos'][1]
+                    combo_range = segment[start:end + 1]
+
+                    # 计算实际流动路径（跨位校正）
+                    actual_path = current['actual_range'] + ("." * gap) + next_star['actual_range']
+
+                    # 创建流动记录
+                    flow_key = (current['star'], next_star['star'])
+                    flow_meaning = ENERGY_FLOW_DETAILS.get(flow_key, {}).get('title',
+                                                                             f"{current['star']}→{next_star['star']} 流动")
+
+                    # 添加 types 字段
+                    flows.append({
+                        'stars': f"{current['star']}→{next_star['star']}",
+                        'meaning': flow_meaning,
+                        'total_energy': current['level'] + next_star['level'],
+                        'range': combo_range,
+                        'actual_path': actual_path,  # 显示实际流动路径
+                        'components': [current, next_star],
+                        'gap': gap,
+                        'types': [current['type'], next_star['type']]  # 确保包含types字段
+                    })
+
+    return flows
+
+
 def visualize_energy_flow(energy_flows):
-    """可视化能量流动分析"""
+    """可视化能量流动分析（增强版）"""
     st.header("2. 能量流动分析")
-    
+
     if not energy_flows:
         st.write("无明显能量流动模式")
         return
-    
-    # 创建能量等级的颜色映射
-    energy_colors = {
-        4: "#FFD700",  # 金色 - 最高能量
-        3: "#FFA500",  # 橙色 - 高能量
-        2: "#1E90FF",  # 蓝色 - 中等能量
-        1: "#808080"   # 灰色 - 低能量
+
+    # 创建能量等级配色方案
+    ENERGY_COLORS = {
+        8: "#FF0000",  # 红色（最高）
+        7: "#FF4500",
+        6: "#FF8C00",
+        5: "#FFA500",  # 橙色
+        4: "#FFD700",  # 金色
+        3: "#DAA520",  # 一般
+        2: "#B0C4DE",  # 较低
+        1: "#778899"  # 最低
     }
-    
-    # 按能量等级分组显示
-    for level in [4, 3, 2, 1]:
-        level_flows = [flow for flow in energy_flows if flow['energy_level'] == level]
-        if level_flows:
-            st.subheader(f"{level}级能量流动 ({len(level_flows)}个)")
-            
-            for flow in level_flows:
-                # 构建标题
-                title = f"组合 {flow['combination']} ({flow['stars']})"
-                if 'type1' in flow and 'type2' in flow:
-                    types = []
-                    if flow['type1'] != "常规":
-                        types.append(flow['type1'])
-                    if flow['type2'] != "常规":
-                        types.append(flow['type2'])
-                    if types:
-                        title += f" [{', '.join(types)}]"
-                
-                # 使用对应能量等级的颜色
-                with st.expander(title):
-                    # 显示能量等级
-                    st.markdown(f"**能量等级**: <span style='color:{energy_colors[level]}; font-weight:bold;'>{level}级</span>", unsafe_allow_html=True)
-                    
-                    # 显示基本含义
-                    st.markdown(f"**基本含义**: {flow['meaning']}")
-                    
-                    # 显示详细信息
-                    if 'details' in flow and flow['details']:
-                        st.markdown(f"**{flow['details']['title']}**")
-                        for detail in flow['details']['details']:
-                            st.markdown(f"- {detail}")
-                    
-                    # 删除能量进度条和百分比显示
-    
-    # 添加能量流动的统计图表
-    st.subheader("能量流动统计")
-    
-    # 准备数据
-    energy_counts = Counter([flow['energy_level'] for flow in energy_flows])
-    levels = sorted(energy_counts.keys(), reverse=True)
-    counts = [energy_counts[level] for level in levels]
-    
-    # 创建图表
-    fig, ax = plt.subplots(figsize=(10, 6))
-    bars = ax.bar(
-        [f"{level}级能量" for level in levels], 
-        counts,
-        color=[energy_colors[level] for level in levels]
-    )
-    
-    # 添加数值标签
-    for bar in bars:
-        height = bar.get_height()
-        ax.text(
-            bar.get_x() + bar.get_width()/2., 
-            height + 0.1,
-            f'{int(height)}',
-            ha='center', va='bottom'
-        )
-    
-    ax.set_title("能量流动等级分布")
-    ax.set_xlabel("能量等级")
-    ax.set_ylabel("组合数量")
-    ax.grid(axis='y', linestyle='--', alpha=0.3)
-    
-    # 显示图表
-    st.pyplot(fig)
-    plt.close()
+
+    # 按能量等级分组
+    for energy in sorted({f['total_energy'] for f in energy_flows}, reverse=True):
+        group = [f for f in energy_flows if f['total_energy'] == energy]
+        color = ENERGY_COLORS.get(energy, "#999999")
+
+        st.subheader(f"🔋 能量等级 {energy} ({len(group)}个组合)")
+
+        for flow in group:
+            # 构建标题
+            title_parts = [
+                f"`{flow['range']}`",
+                f"{flow['stars']}"
+            ]
+
+            if flow['types']:
+                title_parts.append(f"[{'/'.join(flow['types'])}]")
+
+            title = " ".join(title_parts)
+
+            with st.expander(title):
+                # 顶部显示能量条
+                energy_percent = min(100, energy * 12.5)  # 将1-8映射到12.5-100%
+                st.progress(int(energy_percent))
+
+                cols = st.columns([1, 3])
+                with cols[0]:
+                    # 显示组合详情
+                    st.markdown(f"**总能量**: <span style='color:{color};font-weight:bold'>{energy}</span>",
+                                unsafe_allow_html=True)
+                    st.markdown(f"**组合**: `{flow['range']}`")
+
+                with cols[1]:
+                    # 显示星组详情
+                    for comp in flow['components']:
+                        badge_color = "#4CAF50" if comp['type'] == '常规' else "#FF9800"
+                        st.markdown(
+                            f"**{comp['star']}** "
+                            f"<span style='background:{badge_color};color:white;padding:2px 6px;"
+                            f"border-radius:4px;font-size:0.8em'>{comp['type']}</span> "
+                            f"- 能量: {comp['level']} (`{comp['pair']}`)",
+                            unsafe_allow_html=True
+                        )
+
+                # 显示含义详情
+                st.markdown("---")
+                st.markdown(f"**能量流动解释**: {flow['meaning']}")
+
+                # 如果有更详细的解释
+                flow_key = tuple(flow['stars'].split('→'))
+                if flow_key in ENERGY_FLOW_DETAILS:
+                    details = ENERGY_FLOW_DETAILS[flow_key]['details']
+                    for d in details[:3]:  # 只显示前3条关键信息
+                        st.markdown(f"- {d}")
 
 
 def check_special_info(number):
     """分析逻辑8：特殊信息检测"""
     detected = []
-    
+
     # 检查所有特殊组合
     for info_type, patterns in SPECIAL_INFO.items():
         # 处理简单列表形式的特殊组合（如女性破婚号）
@@ -1560,8 +1572,9 @@ def check_special_info(number):
                         'details': SPECIAL_INFO_DETAILS.get(info_type, {}).get(subtype, ""),
                         'warning': get_special_warning(info_type)
                     })
-    
+
     return detected
+
 
 def get_special_warning(info_type):
     """获取特殊信息的警告说明"""
@@ -1628,15 +1641,17 @@ def analyze_star_combinations(stars_data):
                 })
 
     return combinations
+
+
 # 在visualize_results函数中添加特殊信息的可视化部分
 def visualize_special_info(special_info):
     """可视化特殊信息部分"""
     st.header("5. 特殊信息分析")
-    
+
     if not special_info:
         st.write("未检测到特殊信息")
         return
-    
+
     # 按类型分组显示特殊信息
     for info in special_info:
         # 设置不同类型的图标
@@ -1650,20 +1665,20 @@ def visualize_special_info(special_info):
             '房产特征': '🏠'
         }
         icon = icons.get(info['type'], '⚠️')
-        
+
         # 创建可展开的部分
         with st.expander(f"{icon} {info['type']}"):
             # 显示子类型（如果有）
             if 'subtype' in info:
                 st.markdown(f"**组合类型**: {info['subtype']}")
-            
+
             # 显示匹配的模式
             st.markdown(f"**匹配组合**: {', '.join(info['patterns'])}")
-            
+
             # 显示详细信息
             if 'details' in info and info['details']:
                 st.markdown(f"**详细解释**: {info['details']}")
-            
+
             # 显示警告信息
             if 'warning' in info:
                 st.warning(info['warning'])
@@ -1671,7 +1686,7 @@ def visualize_special_info(special_info):
 
 def visualize_results(results):
     """可视化分析结果"""
-      # 1.  八星分布
+    # 1.  八星分布
     st.header("1. 八星组合分析")
     stars_data = results['八星分布']
     if stars_data['stars']:
@@ -1691,54 +1706,54 @@ def visualize_results(results):
                 energy_analysis['max_energy_level'],
                 energy_analysis['energy_levels']
             ))
-            
+
         # 添加八星可视化图表
         st.subheader("八星能量分布")
-        
+
         # 设置中文字体解决乱码问题
         plt.rcParams['font.sans-serif'] = ['Arial Unicode MS', 'SimHei']  # 设置中文字体
         plt.rcParams['axes.unicode_minus'] = False  # 解决负号显示问题
-        
+
         # 准备图表数据
         star_names = [star for star, _, _, _, _ in stars_with_energy]
         star_counts = [data['count'] for _, data, _, _, _ in stars_with_energy]
         star_energies = [energy for _, _, energy, _, _ in stars_with_energy]
-        
+
         # 创建双轴图表
         fig, ax1 = plt.subplots(figsize=(12, 6))
-        
+
         # 第一个轴：星组数量（柱状图）
         bars = ax1.bar(star_names, star_counts, color='skyblue', alpha=0.7, label='出现次数')
         ax1.set_xlabel('星组', fontsize=12)
         ax1.set_ylabel('出现次数', fontsize=12, color='royalblue')
         ax1.tick_params(axis='y', labelcolor='royalblue')
-        
+
         # 第二个轴：星组能量（折线图）
         ax2 = ax1.twinx()
         ax2.plot(star_names, star_energies, 'ro-', linewidth=2, markersize=8, label='能量值')
         ax2.set_ylabel('能量值', fontsize=12, color='crimson')
         ax2.tick_params(axis='y', labelcolor='crimson')
-        
+
         # 在折线图上添加数值标签
         for i, energy in enumerate(star_energies):
             ax2.text(i, energy + 0.3, f'{energy}', ha='center', va='bottom', color='crimson')
-        
+
         # 添加图例
         lines, labels = ax1.get_legend_handles_labels()
         lines2, labels2 = ax2.get_legend_handles_labels()
         ax2.legend(lines + lines2, labels + labels2, loc='upper right')
-        
+
         # 设置标题和网格
         plt.title('八星组合分布与能量对比', fontsize=14, pad=20)
         ax1.grid(axis='y', linestyle='--', alpha=0.3)
-        
+
         # 调整布局
         plt.tight_layout()
-        
+
         # 显示图表
         st.pyplot(fig)
         plt.close()
-        
+
         # 显示所有星组
         st.subheader("八星详细分析")
         for star, data, total_energy, max_level, energy_levels in stars_with_energy:
@@ -1759,17 +1774,18 @@ def visualize_results(results):
                         for hidden in data['hidden_pairs']:
                             st.markdown(f"- `{hidden['full']}` (夹0/5:  {hidden['pair']})")
 
-               # 在visualize_results函数中的tab2部分
+                # 在visualize_results函数中的tab2部分
                 # 在visualize_results函数中的tab2部分
                 # 在visualize_results函数中的tab2部分
                 with tab2:
-                 if data.get('hidden_pairs'):
-                    for hidden in data['hidden_pairs']:
-                     st.markdown(f"**{hidden['type']}{star}** (组合: `{hidden['full']}`)")
-                     special_meaning = SPECIAL_COMBINATIONS_MEANINGS.get(star, {}).get(hidden['type'], "无特定解释")
-                     st.write(special_meaning)
-                     st.markdown("---")  # 添加分隔线，使不同组合的显示更清晰
-                
+                    if data.get('hidden_pairs'):
+                        for hidden in data['hidden_pairs']:
+                            st.markdown(f"**{hidden['type']}{star}** (组合: `{hidden['full']}`)")
+                            special_meaning = SPECIAL_COMBINATIONS_MEANINGS.get(star, {}).get(hidden['type'],
+                                                                                              "无特定解释")
+                            st.write(special_meaning)
+                            st.markdown("---")  # 添加分隔线，使不同组合的显示更清晰
+
                 with tab3:
                     for category, meaning in data['meaning'].items():
                         icons = {
@@ -1780,23 +1796,22 @@ def visualize_results(results):
                         icon = icons.get(category, '•')
                         st.markdown(f"{icon} **{category}:** {meaning}")
     # 2. 能量流动
-   # 在visualize_results函数中的能量流动分析部分
-   # 在visualize_results函数中的能量流动分析部分修改为：
+    # 在visualize_results函数中的能量流动分析部分
+    # 在visualize_results函数中的能量流动分析部分修改为：
     visualize_energy_flow(results['能量流动'])
 
-
-            # ================== 尾号分析 ==================
-   # 在visualize_results函数中的尾号分析部分
+    # ================== 尾号分析 ==================
+    # 在visualize_results函数中的尾号分析部分
     # 在visualize_results函数中的尾号分析部分
     st.header("3. 尾号能量分析")
     tail_data = results['尾号分析']
     cols = st.columns([1, 3])
     with cols[0]:
-     st.markdown(f"### 尾号\n**{tail_data['tail_number']}**")
-     st.caption(f"分析类型: {tail_data.get('analysis_type', '标准尾号')}")
+        st.markdown(f"### 尾号\n**{tail_data['tail_number']}**")
+        st.caption(f"分析类型: {tail_data.get('analysis_type', '标准尾号')}")
 
     with cols[1]:
-     dom = tail_data['dominant_tail']
+        dom = tail_data['dominant_tail']
     if dom['star']:
         # 创建更好的显示格式
         level_color = "#FFA500"  # 默认橙色
@@ -1824,13 +1839,13 @@ def visualize_results(results):
 
         # 显示星组的详细含义
         st.markdown("### 星组详细含义")
-        
+
         # 获取特殊组合的含义（如果有）
         special_meaning = None
         if '夹' in str(tail_data.get('analysis_type', '')):
             special_type = tail_data.get('analysis_type')
             special_meaning = SPECIAL_COMBINATIONS_MEANINGS.get(dom['star'], {}).get(special_type)
-        
+
         # 显示星组的各方面含义
         for category, meaning in dom['meaning'].items():
             icons = {
@@ -1840,7 +1855,7 @@ def visualize_results(results):
             }
             icon = icons.get(category, '•')
             st.markdown(f"{icon} **{category}:** {meaning}")
-        
+
         # 如果有特殊组合含义，显示它
         if special_meaning:
             st.markdown("### 特殊组合含义")
@@ -1848,21 +1863,21 @@ def visualize_results(results):
     else:
         st.info("未检测到显著星组特征")
 
-# 显示尾号中找到的所有星组，按从后往前的顺序排列
+    # 显示尾号中找到的所有星组，按从后往前的顺序排列
     if tail_data['tail_stars']:
-     st.subheader("尾号星组")
-    
+        st.subheader("尾号星组")
+
     # 重新排序尾号星组，从后往前
     tail_number = tail_data['tail_number']
     ordered_stars = []
-    
+
     # 从后往前检查每个可能的位置
-    for i in range(len(tail_number)-1, 0, -1):
-        pair = tail_number[i-1:i+1]
+    for i in range(len(tail_number) - 1, 0, -1):
+        pair = tail_number[i - 1:i + 1]
         for star, p in tail_data['tail_stars']:
             if p == pair:
-                ordered_stars.append((star, pair, i-1))
-    
+                ordered_stars.append((star, pair, i - 1))
+
     # 显示排序后的星组
     cols = st.columns(4)
     for i, (star, pair, pos) in enumerate(ordered_stars):
@@ -1872,7 +1887,7 @@ def visualize_results(results):
         cols[i % 4].markdown(star_text)
 
     st.markdown("---")
-# 在visualize_results函数中的五行分析部分
+    # 在visualize_results函数中的五行分析部分
     # 4. 五行能量分析
     st.header("4. 五行能量分析")
     element_data = results['五行分析']
@@ -1887,7 +1902,6 @@ def visualize_results(results):
         '金': '#FFD700',  # 金色
         '水': '#2196F3'  # 蓝色
     }
-
 
     element_descriptions = {
         '木': '木（绿色）：代表生长、发展',
@@ -1907,13 +1921,13 @@ def visualize_results(results):
             ordered_elements.append(element)
             ordered_counts.append(element_data['五行统计'][element])
             ordered_colors.append(element_colors[element])
-# 创建图表前清理之前的资源
+    # 创建图表前清理之前的资源
     plt.close('all')
     # 创建图表 - 使用中文字体解决乱码问题
     plt.rcParams['font.sans-serif'] = ['Arial Unicode MS', 'SimHei']  # 设置中文字体
     plt.rcParams['axes.unicode_minus'] = False  # 解决负号显示问题
-    
-       # 创建图表 - 使用中文字体解决乱码问题
+
+    # 创建图表 - 使用中文字体解决乱码问题
     fig, ax = plt.subplots(figsize=(12, 7))
     bars = ax.bar(ordered_elements, ordered_counts, color=ordered_colors)
 
@@ -1944,44 +1958,43 @@ def visualize_results(results):
     # 调整布局以适应图例
     plt.tight_layout()
 
-     # 显示图表后确保关闭
+    # 显示图表后确保关闭
     st.pyplot(fig)
     plt.close(fig)
 
     # 添加饼图展示五行比例
     st.subheader("五行比例分布")
-     # 创建新图表前清理资源
+    # 创建新图表前清理资源
     plt.close('all')
     fig2, ax2 = plt.subplots(figsize=(10, 7))
     wedges, texts, autotexts = ax2.pie(
-        ordered_counts, 
+        ordered_counts,
         labels=ordered_elements,
         autopct='%1.1f%%',
         startangle=90,
         colors=ordered_colors,
         wedgeprops={'edgecolor': 'w', 'linewidth': 1}
     )
-    
+
     # 设置饼图文本样式
     plt.setp(autotexts, size=10, weight="bold")
     plt.setp(texts, size=12)
 
-    
     # 添加标题
     ax2.set_title('五行能量比例', fontsize=14)
-    
+
     # 添加图例
     ax2.legend(
-        wedges, 
+        wedges,
         [f"{element}: {count}次" for element, count in zip(ordered_elements, ordered_counts)],
         title="五行分布",
         loc="center left",
         bbox_to_anchor=(1, 0, 0.5, 1)
     )
-    
+
     # 调整布局
     plt.tight_layout()
-    
+
     # 显示图表
     st.pyplot(fig2)
     plt.close(fig2)
@@ -1996,12 +2009,12 @@ def visualize_results(results):
 def main():
     # 设置matplotlib中文字体
     set_matplotlib_chinese_font()
-    
+
     # 清理之前的plt资源
     plt.close('all')
-    
+
     st.title("手机号码算命分析系统")
-   
+
     st.write("欢迎使用手机号码算命分析系统！请在下方输入您要分析的手机号码。")
 
     # 使用表单
